@@ -16,7 +16,7 @@ class Pret
     #[ORM\Column(type: 'integer')]
     private ?int $ID_pret = null;
 
-    #[ORM\Column(type: 'float', nullable: false)]
+ #[ORM\Column(type: 'float', nullable: false)]
     #[Assert\NotBlank(message: "Le montant du prêt est obligatoire.")]
     #[Assert\Range(
         min: 30,
@@ -34,12 +34,12 @@ class Pret
     #[Assert\PositiveOrZero(message: "Le TMM ne peut pas être négatif.")]
     private ?float $TMM = null;
 
-    #[ORM\Column(type: 'float', nullable: false)]
+ #[ORM\Column(type: 'float', nullable: false)]
     #[Assert\NotBlank(message: "Le taux est obligatoire.")]
     #[Assert\Positive(message: "Le taux doit être un nombre positif.")]
     private ?float $Taux = null;
 
-    #[ORM\Column(type: 'float', nullable: false)]
+#[ORM\Column(type: 'float', nullable: false)]
     #[Assert\NotBlank(message: "Les revenus bruts sont obligatoires.")]
     #[Assert\Positive(message: "Les revenus bruts doivent être supérieurs à 0.")]
     private ?float $revenusBruts = null;
@@ -49,7 +49,7 @@ class Pret
     #[Assert\GreaterThan(value: 18, message: "L'âge de l'employé doit être supérieur à 18 ans.")]
     private ?int $ageEmploye = null;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+#[ORM\Column(type: 'integer', nullable: false)]
     #[Assert\NotBlank(message: "La durée de remboursement est obligatoire.")]
     #[Assert\Range(
         min: 1,
@@ -95,7 +95,7 @@ class Pret
         return $this;
     }
 
-    public function getTMM(): ?float
+ public function getTMM(): ?float
     {
         return $this->TMM;
     }
@@ -106,7 +106,7 @@ class Pret
         return $this;
     }
 
-    public function getTaux(): ?float
+ public function getTaux(): ?float
     {
         return $this->Taux;
     }
@@ -159,5 +159,4 @@ class Pret
     {
         $this->categorie = $categorie;
         return $this;
-    }
-}
+    }}

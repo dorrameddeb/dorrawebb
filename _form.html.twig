@@ -1,4 +1,47 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
+
+    {# Champ Montant du prêt avec validation HTML désactivée #}
+    {{ form_row(form.montantPret, { 'attr': {'required': false} }) }}  {# Assurez-vous que le nom est en minuscule #}
+    {{ form_errors(form.montantPret) }}
+    
+    {# Champ Date du prêt avec validation HTML désactivée #}
+    {{ form_row(form.datePret, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.datePret) }}
+
+    {# Champ TMM (Taux Moyen du Marché) #}
+    {{ form_row(form.tmm, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.tmm) }}
+    
+    {# Champ Taux d'intérêt #}
+    {{ form_row(form.taux, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.taux) }}
+    
+    {# Champ Revenus bruts avec validation désactivée #}
+    {{ form_row(form.revenusBruts, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.revenusBruts) }}
+
+    {# Champ Age de l'employé #}
+    {{ form_row(form.ageEmploye, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.ageEmploye) }}
+
+    {# Champ Durée de remboursement (en mois) #}
+    {{ form_row(form.dureeRemboursement, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.dureeRemboursement) }}
+
+    {# Champ Catégorie avec affichage conditionnel si valeur spécifique #}
+    {% if form.categorie.vars.value in ['professionnel', 'personnel'] %}
+        {{ form_row(form.categorie, { 'attr': {'required': false} }) }}
+        {{ form_errors(form.categorie) }}
+    {% endif %}
+
+    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+
 {{ form_end(form) }}

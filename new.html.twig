@@ -1,11 +1,55 @@
+ 
+
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reponse{% endblock %}
-
 {% block body %}
-    <h1>Create new Reponse</h1>
+    <h1>Remplir le formulaire du crédit </h1>
 
-    {{ include('reponse/_form.html.twig') }}
+    {# Affichage des messages de flash si existants #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <script>
+                Swal.fire({
+                    icon: '{{ label == 'success' ? 'info' : 'error' }}',  {# Utiliser 'info' pour succès (bleu) #}
+                    title: '{{ label == 'success' ? 'Succès' : 'Erreur' }}',
+                    text: '{{ message }}',
+                    showConfirmButton: true
+                });
+            </script>
+        {% endfor %}
+    {% endfor %}
 
-    <a href="{{ path('app_reponse_index') }}">back to list</a>
+    {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }} {# Désactive toute la validation HTML #}
+        {{ form_row(form.Montant_pret) }}
+        {{ form_row(form.Date_pret) }}
+        {{ form_row(form.TMM) }}
+        {{ form_row(form.Taux) }}
+        {{ form_row(form.Revenus_bruts) }}
+        {{ form_row(form.Age_employe) }}
+        {{ form_row(form.duree_remboursement) }}
+        {{ form_row(form.Categorie) }}
+        
+        <button class="btn">Enregistrer</button>
+    {{ form_end(form) }}
+
+    {# Lien vers la liste des absences après ajout #}
+    <a href="{{ path('app_pret_index') }}" class="btn btn-secondary">Retour à la liste des absences</a>
+
+     
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                Swal.fire({
+                    icon: '{{ label == 'success' ? 'info' : 'error' }}',  {# Utiliser 'info' pour succès (bleu) #}
+                    title: '{{ label == 'success' ? 'Succès' : 'Erreur' }}',
+                    text: '{{ message }}',
+                    showConfirmButton: true
+                });
+            {% endfor %}
+        {% endfor %}
+    </script>
 {% endblock %}

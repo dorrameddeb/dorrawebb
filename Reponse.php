@@ -4,9 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ReponseRepository;
 
 #[ORM\Entity(repositoryClass: ReponseRepository::class)]
@@ -18,6 +16,62 @@ class Reponse
     #[ORM\Column(type: 'integer')]
     private ?int $ID_reponse = null;
 
+ #[ORM\Column(type: 'date', nullable: false)]
+    #[Assert\NotBlank(message: "La date de réponse est obligatoire.")]
+    #[Assert\GreaterThanOrEqual(
+        "today",
+        message: "La date de réponse doit être aujourd'hui ou dans le futur."
+    )]
+    private ?\DateTimeInterface $Date_reponse = null;
+
+ #[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "Le montant demandé est obligatoire.")]
+    #[Assert\Positive(message: "Le montant demandé doit être positif.")]
+    private ?float $Montant_demande = null;
+
+ #[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "Les revenus bruts sont obligatoires.")]
+    #[Assert\Positive(message: "Les revenus bruts doivent être positifs.")]
+    private ?float $Revenus_bruts = null;
+
+#[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "Le taux d'intérêt est obligatoire.")]
+    #[Assert\Range(
+        min: 0,
+        max: 100,
+        notInRangeMessage: "Le taux d'intérêt doit être entre {{ min }}% et {{ max }}%."
+    )]
+    private ?float $Taux_interet = null;
+
+#[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "La mensualité est obligatoire.")]
+    #[Assert\PositiveOrZero(message: "La mensualité ne peut pas être négative.")]
+    private ?float $Mensualite_credit = null;
+
+#[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "Le potentiel de crédit est obligatoire.")]
+    #[Assert\PositiveOrZero(message: "Le potentiel de crédit ne peut pas être négatif.")]
+    private ?float $Potentiel_credit = null;
+
+#[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\NotBlank(message: "La durée de remboursement est obligatoire.")]
+    #[Assert\Range(
+        min: 1,
+        max: 30,
+        notInRangeMessage: "La durée de remboursement doit être comprise entre {{ min }} et {{ max }} ans."
+    )]
+    private ?int $Duree_remboursement = null;
+
+ #[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "Le montant autorisé est obligatoire.")]
+    #[Assert\PositiveOrZero(message: "Le montant autorisé ne peut pas être négatif.")]
+    private ?float $Montant_autorise = null;
+ #[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "L'assurance est obligatoire.")]
+    #[Assert\PositiveOrZero(message: "Le montant de l'assurance ne peut pas être négatif.")]
+    private ?float $Assurance = null;
+
+    // Getters et Setters (conservés tels quels)
     public function getID_reponse(): ?int
     {
         return $this->ID_reponse;
@@ -28,123 +82,95 @@ class Reponse
         $this->ID_reponse = $ID_reponse;
         return $this;
     }
-
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $Date_reponse = null;
-
-    public function getDate_reponse(): ?\DateTimeInterface
+  public function getDateReponse(): ?\DateTimeInterface
     {
-        return $this->Date_reponse;
+      return $this->Date_reponse;
     }
-
-    public function setDate_reponse(\DateTimeInterface $Date_reponse): self
+    
+    public function setDateReponse(\DateTimeInterface $Date_reponse): self
     {
-        $this->Date_reponse = $Date_reponse;
+    $this->Date_reponse = $Date_reponse;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Montant_demande = null;
-
-    public function getMontant_demande(): ?float
+public function getMontantDemande(): ?float
     {
         return $this->Montant_demande;
     }
 
-    public function setMontant_demande(float $Montant_demande): self
+    public function setMontantDemande(float $Montant_demande): self
     {
-        $this->Montant_demande = $Montant_demande;
+     $this->Montant_demande = $Montant_demande;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Revenus_bruts = null;
-
-    public function getRevenus_bruts(): ?float
+ public function getRevenusBruts(): ?float
     {
         return $this->Revenus_bruts;
     }
 
-    public function setRevenus_bruts(float $Revenus_bruts): self
+    public function setRevenusBruts(float $Revenus_bruts): self
     {
-        $this->Revenus_bruts = $Revenus_bruts;
+     $this->Revenus_bruts = $Revenus_bruts;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Taux_interet = null;
-
-    public function getTaux_interet(): ?float
+public function getTauxInteret(): ?float
     {
         return $this->Taux_interet;
     }
 
-    public function setTaux_interet(float $Taux_interet): self
+  public function setTauxInteret(float $Taux_interet): self
     {
-        $this->Taux_interet = $Taux_interet;
+     $this->Taux_interet = $Taux_interet;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Mensualite_credit = null;
-
-    public function getMensualite_credit(): ?float
+ public function getMensualiteCredit(): ?float
     {
         return $this->Mensualite_credit;
     }
 
-    public function setMensualite_credit(float $Mensualite_credit): self
+    public function setMensualiteCredit(float $Mensualite_credit): self
     {
-        $this->Mensualite_credit = $Mensualite_credit;
+    $this->Mensualite_credit = $Mensualite_credit;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Potentiel_credit = null;
-
-    public function getPotentiel_credit(): ?float
+public function getPotentielCredit(): ?float
     {
         return $this->Potentiel_credit;
     }
 
-    public function setPotentiel_credit(float $Potentiel_credit): self
+    public function setPotentielCredit(float $Potentiel_credit): self
     {
-        $this->Potentiel_credit = $Potentiel_credit;
+     $this->Potentiel_credit = $Potentiel_credit;
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $Duree_remboursement = null;
-
-    public function getDuree_remboursement(): ?int
+public function getDureeRemboursement(): ?int
     {
         return $this->Duree_remboursement;
     }
 
-    public function setDuree_remboursement(int $Duree_remboursement): self
+    public function setDureeRemboursement(int $Duree_remboursement): self
     {
-        $this->Duree_remboursement = $Duree_remboursement;
+      $this->Duree_remboursement = $Duree_remboursement;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Montant_autorise = null;
-
-    public function getMontant_autorise(): ?float
+ public function getMontantAutorise(): ?float
     {
         return $this->Montant_autorise;
     }
 
-    public function setMontant_autorise(float $Montant_autorise): self
+    public function setMontantAutorise(float $Montant_autorise): self
     {
         $this->Montant_autorise = $Montant_autorise;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $Assurance = null;
-
-    public function getAssurance(): ?float
+public function getAssurance(): ?float
     {
         return $this->Assurance;
     }
@@ -155,105 +181,28 @@ class Reponse
         return $this;
     }
 
-    public function getIDReponse(): ?int
-    {
-        return $this->ID_reponse;
+    // ... (autres getters et setters)
+
+    // ...
+
+/**
+ * Magic method pour contourner le problème de PropertyAccess
+ */
+public function __call($name, $arguments) {
+    $property = lcfirst(str_replace('get', '', $name));
+    if (property_exists($this, $property)) {
+        return $this->$property;
     }
+    throw new \RuntimeException("Method $name not found");
+}
 
-    public function getDateReponse(): ?\DateTimeInterface
-    {
-        return $this->Date_reponse;
+/**
+ * Magic getter alternatif
+ */
+public function &__get($name) {
+    if (property_exists($this, $name)) {
+        return $this->$name;
     }
-
-    public function setDateReponse(\DateTimeInterface $Date_reponse): static
-    {
-        $this->Date_reponse = $Date_reponse;
-
-        return $this;
-    }
-
-    public function getMontantDemande(): ?float
-    {
-        return $this->Montant_demande;
-    }
-
-    public function setMontantDemande(float $Montant_demande): static
-    {
-        $this->Montant_demande = $Montant_demande;
-
-        return $this;
-    }
-
-    public function getRevenusBruts(): ?float
-    {
-        return $this->Revenus_bruts;
-    }
-
-    public function setRevenusBruts(float $Revenus_bruts): static
-    {
-        $this->Revenus_bruts = $Revenus_bruts;
-
-        return $this;
-    }
-
-    public function getTauxInteret(): ?float
-    {
-        return $this->Taux_interet;
-    }
-
-    public function setTauxInteret(float $Taux_interet): static
-    {
-        $this->Taux_interet = $Taux_interet;
-
-        return $this;
-    }
-
-    public function getMensualiteCredit(): ?float
-    {
-        return $this->Mensualite_credit;
-    }
-
-    public function setMensualiteCredit(float $Mensualite_credit): static
-    {
-        $this->Mensualite_credit = $Mensualite_credit;
-
-        return $this;
-    }
-
-    public function getPotentielCredit(): ?float
-    {
-        return $this->Potentiel_credit;
-    }
-
-    public function setPotentielCredit(float $Potentiel_credit): static
-    {
-        $this->Potentiel_credit = $Potentiel_credit;
-
-        return $this;
-    }
-
-    public function getDureeRemboursement(): ?int
-    {
-        return $this->Duree_remboursement;
-    }
-
-    public function setDureeRemboursement(int $Duree_remboursement): static
-    {
-        $this->Duree_remboursement = $Duree_remboursement;
-
-        return $this;
-    }
-
-    public function getMontantAutorise(): ?float
-    {
-        return $this->Montant_autorise;
-    }
-
-    public function setMontantAutorise(float $Montant_autorise): static
-    {
-        $this->Montant_autorise = $Montant_autorise;
-
-        return $this;
-    }
-
+    throw new \RuntimeException("Property $name not found");
+}
 }

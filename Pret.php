@@ -19,15 +19,15 @@ class Pret
  #[ORM\Column(type: 'float', nullable: false)]
     #[Assert\NotBlank(message: "Le montant du prêt est obligatoire.")]
     #[Assert\Range(
-        min: 30,
-        notInRangeMessage: "Le montant du prêt doit être supérieur à 30."
+        min: 0,
+        notInRangeMessage: "Le montant du prêt doit être supérieur à 0."
     )]
-    private ?float $montantPret = null;
+    private ?float $Montant_pret = null;
 
-    #[ORM\Column(type: 'date', nullable: false)]
+ #[ORM\Column(type: 'date', nullable: false)]
     #[Assert\NotBlank(message: "La date du prêt est obligatoire.")]
     #[Assert\GreaterThanOrEqual("today", message: "La date du prêt doit être aujourd'hui ou dans le futur.")]
-    private ?\DateTimeInterface $datePret = null;
+    private ?\DateTimeInterface $Date_pret = null;
 
     #[ORM\Column(type: 'float', nullable: false)]
     #[Assert\NotBlank(message: "Le TMM est obligatoire.")]
@@ -42,12 +42,12 @@ class Pret
 #[ORM\Column(type: 'float', nullable: false)]
     #[Assert\NotBlank(message: "Les revenus bruts sont obligatoires.")]
     #[Assert\Positive(message: "Les revenus bruts doivent être supérieurs à 0.")]
-    private ?float $revenusBruts = null;
+    private ?float $Revenus_bruts = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     #[Assert\NotBlank(message: "L'âge de l'employé est obligatoire.")]
-    #[Assert\GreaterThan(value: 18, message: "L'âge de l'employé doit être supérieur à 18 ans.")]
-    private ?int $ageEmploye = null;
+    #[Assert\GreaterThan(value: 17, message: "L'âge de l'employé doit être supérieur à 18 ans.")]
+    private ?int $Age_employe = null;
 
 #[ORM\Column(type: 'integer', nullable: false)]
     #[Assert\NotBlank(message: "La durée de remboursement est obligatoire.")]
@@ -56,11 +56,11 @@ class Pret
         max: 30,
         notInRangeMessage: "La durée de remboursement doit être comprise entre 1 et 30 ans."
     )]
-    private ?int $dureeRemboursement = null;
+    private ?int $duree_remboursement = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
     #[Assert\NotBlank(message: "La catégorie est obligatoire.")]
-    private ?string $categorie = null;
+    private ?string $Categorie = null;
 
     public function getID_pret(): ?int
     {
@@ -75,23 +75,23 @@ class Pret
 
     public function getMontantPret(): ?float
     {
-        return $this->montantPret;
+        return $this->Montant_pret;
     }
 
-    public function setMontantPret(float $montantPret): self
+    public function setMontantPret(float $Montant_pret): self
     {
-        $this->montantPret = $montantPret;
+        $this->Montant_pret = $Montant_pret;
         return $this;
     }
 
     public function getDatePret(): ?\DateTimeInterface
     {
-        return $this->datePret;
+        return $this->Date_pret;
     }
 
-    public function setDatePret(\DateTimeInterface $datePret): self
+    public function setDatePret(\DateTimeInterface $Date_pret): self
     {
-        $this->datePret = $datePret;
+        $this->Date_pret = $Date_pret;
         return $this;
     }
 
@@ -119,44 +119,44 @@ class Pret
 
     public function getRevenusBruts(): ?float
     {
-        return $this->revenusBruts;
+        return $this->Revenus_bruts;
     }
 
-    public function setRevenusBruts(float $revenusBruts): self
+    public function setRevenusBruts(float $Revenus_bruts): self
     {
-        $this->revenusBruts = $revenusBruts;
+        $this->Revenus_bruts = $Revenus_bruts;
         return $this;
     }
 
     public function getAgeEmploye(): ?int
     {
-        return $this->ageEmploye;
+        return $this->Age_employe;
     }
 
-    public function setAgeEmploye(int $ageEmploye): self
+    public function setAgeEmploye(int $Age_employe): self
     {
-        $this->ageEmploye = $ageEmploye;
+        $this->Age_employe = $Age_employe;
         return $this;
     }
 
     public function getDureeRemboursement(): ?int
     {
-        return $this->dureeRemboursement;
+        return $this->duree_remboursement;
     }
 
-    public function setDureeRemboursement(int $dureeRemboursement): self
+    public function setDureeRemboursement(int $duree_remboursement): self
     {
-        $this->dureeRemboursement = $dureeRemboursement;
+        $this->duree_remboursement = $duree_remboursement;
         return $this;
     }
 
-    public function getCategorie(): ?string
+public function getCategorie(): ?string
     {
-        return $this->categorie;
+        return $this->Categorie;
     }
 
-    public function setCategorie(string $categorie): self
+    public function setCategorie(string $Categorie): self
     {
-        $this->categorie = $categorie;
+        $this->Categorie = $Categorie;
         return $this;
     }}

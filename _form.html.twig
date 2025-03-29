@@ -9,37 +9,37 @@
 {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
 
     {# Champ Montant du prêt avec validation HTML désactivée #}
-    {{ form_row(form.montantPret, { 'attr': {'required': false} }) }}  {# Assurez-vous que le nom est en minuscule #}
-    {{ form_errors(form.montantPret) }}
+    {{ form_row(form.Montant_pret, { 'attr': {'required': false} }) }}  {# Assurez-vous que le nom est en minuscule #}
+    {{ form_errors(form.Montant_pret) }}
     
     {# Champ Date du prêt avec validation HTML désactivée #}
-    {{ form_row(form.datePret, { 'attr': {'required': false} }) }}
-    {{ form_errors(form.datePret) }}
+    {{ form_row(form.Date_pret, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.Date_pret) }}
 
     {# Champ TMM (Taux Moyen du Marché) #}
-    {{ form_row(form.tmm, { 'attr': {'required': false} }) }}
-    {{ form_errors(form.tmm) }}
+    {{ form_row(form.TMM, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.TMM) }}
     
     {# Champ Taux d'intérêt #}
-    {{ form_row(form.taux, { 'attr': {'required': false} }) }}
-    {{ form_errors(form.taux) }}
+    {{ form_row(form.Taux, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.Taux) }}
     
     {# Champ Revenus bruts avec validation désactivée #}
-    {{ form_row(form.revenusBruts, { 'attr': {'required': false} }) }}
-    {{ form_errors(form.revenusBruts) }}
+    {{ form_row(form.Revenus_bruts, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.Revenus_bruts) }}
 
     {# Champ Age de l'employé #}
-    {{ form_row(form.ageEmploye, { 'attr': {'required': false} }) }}
-    {{ form_errors(form.ageEmploye) }}
+    {{ form_row(form.Age_employe, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.Age_employe) }}
 
     {# Champ Durée de remboursement (en mois) #}
-    {{ form_row(form.dureeRemboursement, { 'attr': {'required': false} }) }}
-    {{ form_errors(form.dureeRemboursement) }}
+    {{ form_row(form.duree_remboursement, { 'attr': {'required': false} }) }}
+    {{ form_errors(form.duree_remboursement) }}
 
     {# Champ Catégorie avec affichage conditionnel si valeur spécifique #}
-    {% if form.categorie.vars.value in ['professionnel', 'personnel'] %}
-        {{ form_row(form.categorie, { 'attr': {'required': false} }) }}
-        {{ form_errors(form.categorie) }}
+    {% if form.Categorie.vars.value in ['professionnel', 'personnel'] %}
+        {{ form_row(form.Categorie, { 'attr': {'required': false} }) }}
+        {{ form_errors(form.Categorie) }}
     {% endif %}
 
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
